@@ -1,0 +1,25 @@
+{
+    "name": "sm/elephant",
+    "description": "PHP Libraries",
+    "keywords": ["php"],
+    "license": "MIT",
+    "homepage": "https://github.com/ScottMasson/elephant",
+    "authors": [
+        {
+            "name": "Scott Masson",
+            "email": "masson@tutanota.de"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ScottMasson/elephant/issues",
+        "source": "https://github.com/ScottMasson/elephant"
+    },
+    "require": {
+        "php": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "sm\\elephant\\": "src"
+        }
+    }
+}
