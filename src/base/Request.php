@@ -1,5 +1,5 @@
 <?php
-namespace sm\elephant\base;
+namespace ScottMasson\elephant\base;
 class Request{
     public function domain(string $url = '') :array {
         $parse = parse_url($url);

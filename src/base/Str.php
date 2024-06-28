@@ -1,5 +1,5 @@
 <?php
-namespace sm\elephant\base;
+namespace ScottMasson\elephant\base;
 class Str{
     public function random(int $length,int $types) {
         $arr = [

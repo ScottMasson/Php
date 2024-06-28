@@ -1,5 +1,5 @@
 <?php
-namespace sm\elephant\base;
+namespace ScottMasson\elephant\base;
 class Date{
     public function LastDay($date){
         $unix = strlen((int)$date) === 10?$date:strtotime($date);

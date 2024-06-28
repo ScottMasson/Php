@@ -1,5 +1,5 @@
 <?php
-namespace sm\elephant\base;
+namespace ScottMasson\elephant\base;
 class Arr {
     public function obj(array $array, bool $recursive = true){
 		$obj = new static;
