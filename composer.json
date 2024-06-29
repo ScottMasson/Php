@@ -1,5 +1,5 @@
 {
-    "name": "masson/elephant",
+    "name": "ScottMasson/elephant",
     "description": "PHP Libraries",
     "keywords": ["php"],
     "license": "MIT",
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "masson\\elephant\\": "src"
+            "ScottMasson\\elephant\\": "src"
         }
     }
 }
