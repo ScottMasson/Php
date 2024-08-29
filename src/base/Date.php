@@ -1,7 +1,8 @@
 <?php
-namespace ScottMasson\elephant\base;
+namespace scottmasson\elephant\base;
 class Date{
-    public function LastDay($date){
+    public function LastDay($date)
+    {
         $unix = strlen((int)$date) === 10?$date:strtotime($date);
         return [
             'day'   =>  date('t',$unix),

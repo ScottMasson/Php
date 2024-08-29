@@ -1,9 +1,9 @@
 <?php
-namespace ScottMasson\elephant\base;
+namespace scottmasson\elephant\base;
 class Str{
     public function random(int $length,int $types) {
         $arr = [
-            1 => "0123456789",
+			1 => "0123456789",
             2 => "abcdefghijklmnopqrstuvwxyz",
             3 => "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             4 => "~@#$%^&*(){}[]|"

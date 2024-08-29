@@ -1,7 +1,11 @@
 <?php
-namespace ScottMasson\elephant\base;
-class Arr {
-    public function obj(array $array, bool $recursive = true){
+namespace scottmasson\elephant\base;
+class Arr 
+{
+    public function obj(
+		array $array, 
+		bool $recursive = true)
+	{
 		$obj = new static;
 		foreach ($array as $key => $value) {
 			$obj->$key = $recursive && is_array($value)
@@ -10,10 +14,16 @@ class Arr {
 		}
 		return $obj;
 	}
-    public function contains(array $array, $value): bool {
+    public function contains(
+		array $array, 
+		$value): bool 
+	{
 		return in_array($value, $array, true);
 	}
-	public function findLadderNode(array $array,$node){
+	public function findLadderNode(
+		array $array,
+		$node)
+	{
 
 		if (is_string($node)) $node = explode('::',$node);
 
@@ -24,7 +34,11 @@ class Arr {
 			return $this->findLadderNode($array[$vn],$node);
 		}
 	}
-	public function merge(array $original, array $a, array $b){
+	public function merge(
+		array $original, 
+		array $a, 
+		array $b)
+	{
 		$result = [];
  
 		$a_json = json_encode($a);
@@ -119,7 +133,8 @@ class Arr {
 		}
 		return $result;
 	}
-	public function isNumeric($json){
+	public function isNumeric($json)
+	{
 	   if (!is_string($json)) {
 		  $json = json_encode($json);
 	   }
