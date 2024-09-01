@@ -1,6 +1,7 @@
-<?php
+<?php 
+declare (strict_types = 1);
 namespace scottmasson\elephant\verification;
-class Regex
+class Regex extends \scottmasson\elephant\Autoload
 {
 
     protected $pattern = [
@@ -11,6 +12,9 @@ class Regex
         'videoLinkFormat'  =>  '/^(http)(s)?(\:\/\/).*?(\.mp4|\.wmv|\.webm|\.avi)$/'
     ];
 
+    /**
+     * Class constructor.
+     */
     public function verification($bytes)
     {
         $this->bytes = trim($bytes);
@@ -51,6 +55,16 @@ class Regex
             }
             return $operator;
         } 
+    }
+    public function removeParam(string $symbol = '?') :String 
+    {
+      $pos = strpos($this->bytes,$symbol);
+      if ($pos !== false) {
+            $param = substr($this->bytes,$pos);
+            $url = str_replace($param,'',$this->bytes,$count);
+            return $url;
+      }
+      return $this->bytes;
     }
     public function matching(String $pattern)
     {

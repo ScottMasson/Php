@@ -1,18 +1,14 @@
 <?php
+declare (strict_types = 1);
 namespace scottmasson\elephant\bytes;
 use SplFileInfo;
 use SplFileObject;
 class File extends \scottmasson\elephant\base\Arr
 {
-    public function open(string $file = '',array $config = []){
+
+    public function open(string $file = '')
+    {
         $this->splinfo = new SplFileInfo($file);
-
-        $this->config = parent::obj(parent::merge([],[
-            'date'  =>  [
-                'formatting'    =>  'Y-m-d H:i:s'
-            ]
-        ],$config));
-
         return $this;
     }
     public function mkdirs($mode = 0777){
@@ -81,22 +77,23 @@ class File extends \scottmasson\elephant\base\Arr
     {
         return substr(sprintf('%o', $this->splinfo->getPerms()), -4);
     }
-    public function time(){
+    public function time(string $formatting = 'Y-m-d H:i:s'): object
+    {
         $getATime = $this->splinfo->getATime();
         $getCTime = $this->splinfo->getCTime();
         $getMTime = $this->splinfo->getMTime();
         return parent::obj([
             'atime'  =>  [
                 'timestamp'  =>  $getATime,
-                'date'  =>  date($this->config->date->formatting,$getATime)
+                'date'  =>  date($formatting,$getATime)
             ],
             'ctime'  =>  [
                 'timestamp'  =>  $getCTime,
-                'date'  =>  date($this->config->date->formatting,$getCTime)
+                'date'  =>  date($formatting,$getCTime)
             ],
             'mtime'  =>  [
                 'timestamp'  =>  $getMTime,
-                'date'  =>  date($this->config->date->formatting,$getMTime)
+                'date'  =>  date($formatting,$getMTime)
             ]
         ]);
     }
@@ -309,5 +306,52 @@ class File extends \scottmasson\elephant\base\Arr
         }
         
         return empty($lines)?false:$lines;
+    }
+    /** 
+     ** 
+     *? @date 24/08/30 23:12
+     *  @param myParam1 Explain the meaning of the parameter...
+     *  @param myParam2 Explain the meaning of the parameter...
+     *! @return 
+     */
+    /** 
+    ** Load json file
+    *? @date 24/06/29 16:41
+    *  @param string $operationType Data processing operations such as path, get, set
+    *  @param array $data Data to be saved
+    *! @return array|string|boolean
+    */
+   public function json(
+        $operationType = 'get',
+        array $data = [])
+    {
+
+        $jsonFile =  $this->getRealPath();
+
+        if ($operationType === 'path') return $jsonFile;
+        // return Array
+        if ($operationType === 'get') return json_decode(file_get_contents($jsonFile),true);
+        // set JSON
+        if ($operationType === 'set') file_put_contents($jsonFile,json_encode($data));
+
+        // Gets the specified node data
+        if (is_string($operationType)) 
+        {
+        $operationType = explode('::',$operationType);
+        if ($operationType[0] === 'get') 
+        {
+            unset($operationType[0]);
+            return $this->baseArr()->findLadderNode($this->config('get'),$operationType);
+        }
+        return false;
+        }
+
+        if (is_object($operationType)) 
+        {
+        $data = json_encode($operationType);
+        file_put_contents($jsonFile,$data);
+        return $data;
+        }
+        return false;
     }
 }

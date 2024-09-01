@@ -1,7 +1,9 @@
 <?php
+declare (strict_types = 1);
 namespace scottmasson\elephant\base;
 class Str{
-    public function random(int $length,int $types) {
+    public function random(int $length,int $types) :String
+	{
         $arr = [
 			1 => "0123456789",
             2 => "abcdefghijklmnopqrstuvwxyz",
@@ -27,7 +29,8 @@ class Str{
         return $result;
     }
 
-    public function only(int $type = 0,int $length = 18,int $time=0){
+    public function only(int $type = 0,int $length = 18,int $time=0): String
+	{
 		$str = $time == 0 ? '':date('YmdHis',time());
 	    switch ($type) {
 	        case 0:

@@ -1,28 +1,29 @@
 <?php
+declare (strict_types = 1);
 namespace scottmasson\elephant\base;
-class Arr 
+class Arr extends \scottmasson\elephant\verification\Regex
 {
     public function obj(
 		array $array, 
-		bool $recursive = true)
+		bool $recursive = true): Object
 	{
-		$obj = new static;
+		$objs = new static;
 		foreach ($array as $key => $value) {
-			$obj->$key = $recursive && is_array($value)
+			$objs->$key = $recursive && is_array($value)
 				? $this->obj($value, true)
 				: $value;
 		}
-		return $obj;
+		return $objs;
 	}
     public function contains(
 		array $array, 
-		$value): bool 
+		$value): Bool 
 	{
 		return in_array($value, $array, true);
 	}
 	public function findLadderNode(
 		array $array,
-		$node)
+		$node): Object
 	{
 
 		if (is_string($node)) $node = explode('::',$node);
@@ -37,7 +38,7 @@ class Arr
 	public function merge(
 		array $original, 
 		array $a, 
-		array $b)
+		array $b): Array
 	{
 		$result = [];
  
