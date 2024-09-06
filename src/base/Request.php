@@ -2,7 +2,7 @@
 declare (strict_types = 1);
 namespace scottmasson\elephant\base;
 use scottmasson\elephant\base\Arr;
-use GeoIp2\Database\Reader;
+use scottmasson\elephant\database\Geoip;
 class Request
 {
    public function domain(string $url = '') :object 
@@ -35,20 +35,34 @@ class Request
          'ip'  => gethostbyname($host)
       ]);
    }
-   public function ip()
+   public function ip(string $ip = '',string $lang = 'zh-CN')
    {
-      require_once("geoip/geoip2.phar");
+      $arr = new Arr;
 
-      $domain = $this->domain('https://baidu.com/');
+      if ($ip === '') {
+         $ip = $_SERVER['REMOTE_ADDR'];
+         if ($ip === '127.0.0.1') return $ip;
+      }
+      
+      $verification = $arr->verification($ip);
 
-      // return $_SERVER['REMOTE_ADDR'];
-      $reader = new Reader('/usr/local/var/www/frame/php/laravel/vendor/scottmasson/elephant/src/base/geoip/GeoLite2-City.mmdb');
-      // $_SERVER['REMOTE_ADDR']
-      $record = $reader->city($domain->ip);
-      return [
-         'isoCode'   => $record->country->isoCode,
-         'name'   => $record->country->name,
-         'names'  => $record->country->names
-      ];
+      if ($verification->isIp() === false) return $arr->obj($arr->ERROR(10011));
+
+
+      $geoip = (new Geoip)->internetProtocol($ip);
+
+      switch ($lang) {
+         case 'zh-CN':
+            $zhCH = (new \scottmasson\elephant\database\IpipNet)->city($ip);
+            $geoip['province']['names']['zh-CN'] = $zhCH[1];
+            $geoip['city']['names']['zh-CN'] = $zhCH[2];
+            break;
+         
+         default:
+            # code...
+            break;
+      }
+
+      return (new Arr)->obj($geoip);
    }
 }

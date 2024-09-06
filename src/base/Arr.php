@@ -7,7 +7,8 @@ class Arr extends \scottmasson\elephant\verification\Regex
 		array $array, 
 		bool $recursive = true): Object
 	{
-		$objs = new static;
+		// $objs = new static;
+		$objs = (object)[];
 		foreach ($array as $key => $value) {
 			$objs->$key = $recursive && is_array($value)
 				? $this->obj($value, true)

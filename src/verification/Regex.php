@@ -5,11 +5,13 @@ class Regex extends \scottmasson\elephant\Autoload
 {
 
     protected $pattern = [
+        'http'   =>   '/^http(s)?:\\/\\/.+/',
         'isBase64'  =>  '/^(data:\s*image\/(svg\+xml|fax|gif|x\-icon|jpeg|pnetvue|png|tiff|webp);base64,)/',
         'imgFormat'   =>  '/.*?(\.png|\.jpg|\.jpeg|\.gif|\.webp|\.ico)$/',
         'imgLinkFormat'   =>  '/^(http)(s)?(\:\/\/).*?(\.png|\.jpg|\.jpeg|\.gif|\.webp|\.ico)$/',
         'videoFormat'  =>  '/.*?(\.mp4|\.wmv|\.webm|\.avi)$/',
-        'videoLinkFormat'  =>  '/^(http)(s)?(\:\/\/).*?(\.mp4|\.wmv|\.webm|\.avi)$/'
+        'videoLinkFormat'  =>  '/^(http)(s)?(\:\/\/).*?(\.mp4|\.wmv|\.webm|\.avi)$/',
+        'htmlAHrefLink'  =>  '/<[a|A].*?href="(.*?)".*?>/is'
     ];
 
     /**
@@ -20,10 +22,12 @@ class Regex extends \scottmasson\elephant\Autoload
         $this->bytes = trim($bytes);
         return $this;
     }
-    public function isEmail(){
+    public function isEmail():bool
+    {
         return strlen(filter_var($this->bytes,FILTER_VALIDATE_EMAIL)) === 0?false:true;
     }
-    public function isNumber(){
+    public function isNumber():bool
+    {
         return is_numeric($this->bytes);
     }
     public function isPhone(int $itac = 86) :Array 
@@ -55,6 +59,10 @@ class Regex extends \scottmasson\elephant\Autoload
             }
             return $operator;
         } 
+    }
+    public function isIp():bool
+    {
+        return filter_var($this->bytes,FILTER_VALIDATE_IP) === false? false : true; 
     }
     public function removeParam(string $symbol = '?') :String 
     {

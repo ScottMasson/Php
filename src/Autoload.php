@@ -9,7 +9,8 @@ class Autoload
    public function __construct()
    {
       $this->rootPath = realpath(dirname(__DIR__,4));
-      $this->publicPath = realpath(dirname(__DIR__,4)). DIRECTORY_SEPARATOR .'public';
+      $this->publicPath = $this->rootPath. DIRECTORY_SEPARATOR .'public';
+      $this->smVendorPath = $this->rootPath . DIRECTORY_SEPARATOR . 'sm' . DIRECTORY_SEPARATOR . 'vendor';
    }
    public function ERROR(int $k)
    {
@@ -17,7 +18,8 @@ class Autoload
          return [
             'ERRORCODE' => $k,
             'ERRORMESSAGE' => [
-            10010 => '内容格式错误!'
+            10010 => '内容格式错误!',
+            10011 => 'IP地址格式错误',
          ][$k]];
       } catch (\Throwable ) {
          return 'The error number does not exist';

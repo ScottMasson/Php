@@ -14,7 +14,7 @@ class File extends \scottmasson\elephant\base\Arr
     public function mkdirs($mode = 0777){
         try {
             if ($this->exists() === false) {
-                if (mkdir($this->splinfo->getPathname().'/', $mode, true)) {
+                if (mkdir($this->splinfo->getPathname().DIRECTORY_SEPARATOR, $mode, true)) {
                     $this->chmod($mode);
                 }
             }

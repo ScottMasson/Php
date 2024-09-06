@@ -3,7 +3,7 @@ namespace scottmasson\elephant\algorithm;
 class AdvancedEncryptionStandard
 {
     public function result(bool $direction,$bytes,string $token = '',$salt = null){
-        $token = $token === ''? getenv('SM_UNIVERSAL_KEY') : $token;
+        $token = $token === ''? getenv('SM_PUBLIC_KEY') : $token;
         return $direction === true?
         $this->encrypt($bytes, $token, $salt):
         $this->decrypt($bytes, $token);
