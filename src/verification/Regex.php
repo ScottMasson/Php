@@ -4,6 +4,8 @@ namespace scottmasson\elephant\verification;
 class Regex extends \scottmasson\elephant\Autoload
 {
 
+    private $bytes;
+
     protected $pattern = [
         'http'   =>   '/^http(s)?:\\/\\/.+/',
         'isBase64'  =>  '/^(data:\s*image\/(svg\+xml|fax|gif|x\-icon|jpeg|pnetvue|png|tiff|webp);base64,)/',

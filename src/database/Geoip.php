@@ -6,6 +6,9 @@ use scottmasson\elephant\base\Arr;
 use GeoIp2\Database\Reader;
 class Geoip
 {
+
+    private $geoip2;
+
     public function __construct()
     {
         $this->geoip2 = new Reader(__DIR__.DIRECTORY_SEPARATOR.'geoip/GeoLite2-City.mmdb');

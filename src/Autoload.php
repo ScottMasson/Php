@@ -3,6 +3,11 @@ declare (strict_types = 1);
 namespace scottmasson\elephant;
 class Autoload
 {
+
+   public $rootPath;
+   public $publicPath;
+   public $smVendorPath;
+
    /**
     * Class constructor.
     */
