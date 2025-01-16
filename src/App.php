@@ -5,6 +5,6 @@ final class App extends Autoload
 {
     public function __construct()
     {
-        
+        // ...
     }
 }
